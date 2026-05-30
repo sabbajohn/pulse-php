@@ -19,6 +19,7 @@ use Sabbajohn\PulsePhp\Services\AutomationService;
 use Sabbajohn\PulsePhp\Services\CalendarService;
 use Sabbajohn\PulsePhp\Services\CampaignService;
 use Sabbajohn\PulsePhp\Services\ComposerService;
+use Sabbajohn\PulsePhp\Services\ContactService;
 use Sabbajohn\PulsePhp\Services\EmailService;
 use Sabbajohn\PulsePhp\Services\TemplateService;
 use Sabbajohn\PulsePhp\Services\WhatsAppService;
@@ -31,6 +32,7 @@ class PulseClient
     private ?ComposerService $composerService = null;
     private ?CampaignService $campaignService = null;
     private ?AudienceService $audienceService = null;
+    private ?ContactService $contactService = null;
     private ?AutomationService $automationService = null;
     private ?CalendarService $calendarService = null;
     private ?WhatsAppService $whatsAppService = null;
@@ -71,6 +73,11 @@ class PulseClient
     public function audiences(): AudienceService
     {
         return $this->audienceService ??= new AudienceService($this);
+    }
+
+    public function contacts(): ContactService
+    {
+        return $this->contactService ??= new ContactService($this);
     }
 
     public function automations(): AutomationService

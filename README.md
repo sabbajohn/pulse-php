@@ -48,6 +48,7 @@ The client automatically normalizes the base URL to `/api/v2`.
 - `composer()`: meta, render, validate, autosave and latest revision
 - `campaigns()`: list, create, preview, show and send
 - `audiences()`: audiences, channels, members, tags and segments
+- `contacts()`: list, create, show, update, replace and delete
 - `automations()`: CRUD, trigger, toggle and manual run
 - `calendar()`: items, create event and delete event
 - `whatsapp()`: config, test, instance status, QR, webhook, restart, list and send message
