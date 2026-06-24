@@ -53,7 +53,7 @@ The client automatically normalizes the base URL to `/api/v2`.
 - `emails()`: send sync/async, list, status, cancel, retry, bounce ingestion, stats and SMTP test
 - `templates()`: meta, CRUD and preview
 - `composer()`: meta, render, validate, autosave and latest revision
-- `campaigns()`: list, create, preview, show and send
+- `campaigns()`: list, create, preview, show, update, delete and send
 - `audiences()`: audiences, channels, members, tags and segments
 - `contacts()`: list, create, show, update, replace and delete
 - `automations()`: CRUD, trigger, toggle and manual run

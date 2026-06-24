@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.1.4 - 2026-06-24
+
+- Added `campaigns()->update()` and `campaigns()->delete()` for the public `/campaigns/{campaignId}` update/delete contract.
+- Updated campaign service documentation to match the public OpenAPI surface.
+
 ## v0.1.3 - 2026-06-24
 
 - Added `emails()->ingestBounce()` for the public `POST /emails/bounces` contract.

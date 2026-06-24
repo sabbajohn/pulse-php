@@ -26,6 +26,16 @@ class CampaignService extends AbstractService
         return $this->client->get("campaigns/{$campaignId}");
     }
 
+    public function update(int|string $campaignId, array|CampaignPayload $payload): array
+    {
+        return $this->client->patch("campaigns/{$campaignId}", $this->payload($payload));
+    }
+
+    public function delete(int|string $campaignId): array
+    {
+        return $this->client->delete("campaigns/{$campaignId}");
+    }
+
     public function send(int|string $campaignId, array $payload = []): array
     {
         return $this->client->post("campaigns/{$campaignId}/send", $payload);
