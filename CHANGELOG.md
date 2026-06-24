@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.1.3 - 2026-06-24
+
+- Added `emails()->ingestBounce()` for the public `POST /emails/bounces` contract.
+- Documented manual bounce ingestion for provider/API callbacks that report delivery failures outside the signed SMTP webhook flow.
+
 ## v0.1.2 - 2026-05-30
 
 - Added `contacts()` service for the public contact endpoints (`list`, `create`, `show`, `update`, `replace`, `delete`).

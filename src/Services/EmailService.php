@@ -41,6 +41,11 @@ class EmailService extends AbstractService
         return $this->client->post("emails/{$emailId}/retry");
     }
 
+    public function ingestBounce(array $payload): array
+    {
+        return $this->client->post('emails/bounces', $payload);
+    }
+
     public function stats(): array
     {
         return $this->client->get('stats');

@@ -37,13 +37,20 @@ $pulse->emails()->sendSync([
 ]);
 
 $pulse->automations()->trigger('pedido.criado', ['pedido_id' => 123]);
+
+$pulse->emails()->ingestBounce([
+    'email_id' => 154,
+    'bounce_type' => 'hard',
+    'recipient' => 'cliente@example.com',
+    'reason' => 'Mailbox unavailable',
+]);
 ```
 
 The client automatically normalizes the base URL to `/api/v2`.
 
 ## Services
 
-- `emails()`: send sync/async, list, status, cancel, retry, stats and SMTP test
+- `emails()`: send sync/async, list, status, cancel, retry, bounce ingestion, stats and SMTP test
 - `templates()`: meta, CRUD and preview
 - `composer()`: meta, render, validate, autosave and latest revision
 - `campaigns()`: list, create, preview, show and send
