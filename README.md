@@ -74,3 +74,27 @@ The public exception mapping is stable across SDKs:
 ## Examples
 
 - `examples/quickstart.php`
+
+## Partner provisioning (0.1.5)
+
+Use a separate server-side client with a partner credential. Provisioning requires a valid HTTPS base URL, always verifies TLS and refuses redirects (including HTTPS to HTTP). Unsafe injected base_uri/redirect/verify defaults cannot override this policy; ordinary services retain their own transport settings:
+
+```php
+$partner = new \Sabbajohn\PulsePhp\PulseClient($httpsUrl, $partnerToken);
+$result = $partner->provisioning()->createClient([
+    'external_customer_id' => 'customer-123',
+    'name' => 'Customer',
+], $stableIdempotencyKey);
+```
+
+Persist the key and payload before sending. After a timeout/5xx/429, retry exactly the same key and snapshot. HTTP error status is classified even when the body is HTML or malformed JSON. Retry-After is available via PulseException::retryAfter() for 429/5xx. A 409 throws `ConflictException`; stop and review the conflict. Never derive a new identity to bypass it. Store the returned workspace token encrypted and use it for ordinary operations. Partner credentials must never enter browsers, logs or client-facing proxies. This helper has no automatic retries or local persistence; use the Laravel durable integration when available.
+
+Provisioning is disabled in the backend by default and requires operator-approved plan, scopes and activation policy. No payload field grants permissions. Replay is the original historical response; it does not reactivate or update an account. Existing HTTP clients in a consuming app require explicit integration.
+
+Contract and integration guide belong to the Pulse backend: `docs/integracao/partner-provisioning.md`, `docs/openapi/pulse-partner-v2.openapi.json`. Local tests: `composer test` after dev dependencies install, or use the backend PHPUnit bootstrap as described in the composition guide.
+
+### R3: direct request targets
+
+The same transport policy applies to post/put/patch/delete/request calls for provisioning, not only createClient(). Leading slashes are normalized once before URI parsing and classification; the resulting target is used for sending without a later ltrim or rewrite. Unreserved escapes are canonicalized once (e.g. %70 to p). Provisioning is bound to the validated HTTPS base with TLS verification and redirects disabled.
+
+Ambiguous path forms are rejected before HTTP: dot segments, repeated internal separators, encoded routing delimiters/control characters or nested percent escapes. Provisioning URLs with query/fragment or an absolute target are rejected; use the relative canonical endpoint. The effective base_uri is resolved before transport too: an injected client or per-request base_uri cannot hide a provisioning route behind an ordinary alias such as clients. Normal query options and non-routing encoded identifiers of other services remain supported. No public activation endpoint is added by this policy.
