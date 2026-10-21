@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.1.5 - 2026-10-21
+
+- R3: normalize direct request targets once before policy classification; remove send-time ltrim, reject ambiguous paths and cover multiple leading slashes, queries, encodings, relative paths and activation routes.
+
+- R2: enforce HTTPS/TLS and no redirects for provisioning; classify HTTP errors independently of JSON and preserve Retry-After; add security regressions.
+
+- Add explicit partner provisioning helper and ConflictException; included in 0.1.5.
+
 ## v0.1.4 - 2026-06-24
 
 - Added `campaigns()->update()` and `campaigns()->delete()` for the public `/campaigns/{campaignId}` update/delete contract.
